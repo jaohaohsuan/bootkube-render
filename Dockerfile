@@ -18,7 +18,7 @@ RUN set -x \
   && rm docker.tgz \
   && docker -v
 
-ADD calico.yaml /manifests/calico.yaml
+ADD manifests /manifests
 ADD tar_asset.sh /tar_asset.sh
 ADD retag.sh /retag.sh
 #ENTRYPOINT ["/entrypoint.sh"]

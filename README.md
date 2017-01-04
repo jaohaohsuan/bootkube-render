@@ -15,7 +15,7 @@ docker build -t bootkube-render:latest .
 ## tar asset
 
 ```
-docker run --rm 
+docker run --rm \
            -v `pwd`/out:/out \
            -e "BOOTKUBE_ETCD_SERVERS=https://192.168.60.125:2379" \ 
            -e "BOOTKUBE_API_SERVERS=https://192.168.60.125:443" \
