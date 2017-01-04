@@ -21,6 +21,7 @@ RUN set -x \
 ADD manifests /manifests
 ADD tar_asset.sh /tar_asset.sh
 ADD retag.sh /retag.sh
+ADD list-images.sh /list-images.sh
 #ENTRYPOINT ["/entrypoint.sh"]
 VOLUME ["/out"]
 ENV BOOTKUBE_API_SERVERS=https://127.0.0.1:443 

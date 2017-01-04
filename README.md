@@ -37,3 +37,11 @@ docker run --rm \
            --privileged \
            bootkube-render:latest /retag.sh
 ```
+
+## get images list
+
+```
+docker run --rm -it -e TAG_PREFIX=henryrao  -v `pwd`/out:/out bootkube-render:latest /list-images.sh
+
+cat out/images
+```
