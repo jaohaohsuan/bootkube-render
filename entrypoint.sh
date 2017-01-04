@@ -9,11 +9,11 @@ for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk
     do
     #docker pull $i &> /dev/null;
     if [[ $(echo "$i" | grep -E '^(gcr|quay)') ]]; then
-      tag=henryrao/$(echo $i | awk -F '/' '{print $3}')
+      tag=$TAG_PREFIX/$(echo $i | awk -F '/' '{print $3}')
       echo "$i -> $tag"
       #docker tag $i $tag;
       #docker push $tag &> /dev/null;
-      sed -i 's/image: \(.*\)\/\(.*\:.*\)/image: henryrao\/\2/g' $f
+      sed -i 's/image: \(.*\)\/\(.*\:.*\)/image: $TAG_PREFIX/\2/g' $f
     else
       echo "- $i"
     fi
