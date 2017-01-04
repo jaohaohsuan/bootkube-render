@@ -11,12 +11,28 @@
 docker build -t bootkube-render:latest .
 ```
 
-## how to use
+## tar asset
 
 ```
-docker run --rm -v `pwd`/out:/out \
- -e "BOOTKUBE_ETCD_SERVERS=https://192.168.60.125:2379" \ 
- -e "BOOTKUBE_API_SERVERS=https://192.168.60.125:443" \
- -e "TAG_PREFIX=henryrao" \
- bootkube-render:latest
+docker run --rm 
+           -v `pwd`/out:/out \
+           -e "BOOTKUBE_ETCD_SERVERS=https://192.168.60.125:2379" \ 
+           -e "BOOTKUBE_API_SERVERS=https://192.168.60.125:443" \
+           -e "TAG_PREFIX=henryrao" \
+           bootkube-render:latest /tar_asset.sh
+```
+
+## retag and push
+
+```
+docker run --rm \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v /usr/bin/docker:/usr/bin/docker \
+           -v /usr/lib64/:/opt/lib64/ \
+           -v /root/.docker/config.json:/root/.docker/config.json \
+           -e TAG_PREFIX=henryrao \
+           --net=host \
+           --pid=host \
+           --privileged \
+           bootkube-render:latest /retag.sh
 ```
