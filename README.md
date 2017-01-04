@@ -1,6 +1,7 @@
 # bootkube-render
 
-利用`bootkube redner`出来的`manifests`, 把非docker hub上的image重新打上tag，并取代原有的iamge名称，最后打包成`asset.tar`
+因应GFW, 先把gcr跟quay.io, 重新tag并push到官方docker hub, 再利用docker mirror(自建或用daocloud加速器)进行高速下载.
+利用`bootkube redner`出来的`manifests`, 把非docker hub上的image重新打上tag，并取代原有的iamge名称，最后打包成`asset.tar`.
 
 ## addons
 用户可自行添加manifests档案
