@@ -39,7 +39,7 @@ data:
       apiVersion: v1
       kind: ipPool
       metadata:
-        cidr: 192.168.0.0/16
+        cidr: 172.24.10.0/24
       spec:
         ipip:
           enabled: true
