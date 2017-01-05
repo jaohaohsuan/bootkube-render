@@ -16,6 +16,7 @@ cp -r /manifests/* $dir/manifests
 #    fi
 #  done
 #done
-tar -zcvf /asset.tar $dir -P
+cd $dir
+tar -zcvf /asset.tar ./ -P
 cp $dir/auth/kubeconfig /out/
 cp /asset.tar /out/asset.tar
