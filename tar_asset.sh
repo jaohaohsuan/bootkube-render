@@ -7,7 +7,7 @@ for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk
   do
   for i in `sed -n 's/image: \([a-z]\+\)/\1/p' $f | tr -d ' ' | uniq`
     do
-    if [[ $(echo "$i" | grep -E '^(gcr|quay)') ]]; then
+    if [ ! -z "$TAG_PREFIX" ] && echo "$i" | grep -qE '^(gcr|quay)'; then
       tag=$TAG_PREFIX/$(echo $i | awk -F '/' '{print $3}')
       echo "$i -> $tag"
       sed -i 's/image: \(.*\)\/\(.*\:.*\)/image: '$TAG_PREFIX'\/\2/g' $f

@@ -9,14 +9,16 @@ touch $dir/images
 
 for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk -F ':' '{print $1}' | uniq`
   do
-  for i in `sed -n 's/image: \([a-z]\+\)/\1/p' $f | tr -d ' ' | uniq`
+  for src in `sed -n 's/image: \([a-z]\+\)/\1/p' $f | tr -d ' ' | uniq`
     do
-    if [[ $(echo "$i" | grep -E '^(gcr|quay)') ]]; then
-      tag=$TAG_PREFIX/$(echo $i | awk -F '/' '{print $3}')
-      echo "$tag" >>  $dir/images 
+    if [ ! -z "$TAG_PREFIX" ] && echo "$src" | grep -qE '^(gcr|quay)'; then
+      tag=$TAG_PREFIX/$(echo $src | awk -F '/' '{print $3}')
+      echo "$tag $src" >>  $dir/images 
     else
-      echo "$i" >>  $dir/images 
+      echo "$src $src" >>  $dir/images 
     fi
   done
 done
-cp $dir/images /out/
+#sed -i '$!N; /^\(.*\)\n\1$/!P; D' $dir/images
+awk '!seen[$0]++' $dir/images > $dir/no-duplicate
+cp $dir/no-duplicate /out/images
