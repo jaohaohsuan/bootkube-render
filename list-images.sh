@@ -7,7 +7,7 @@ cp -r /manifests/* $dir/manifests
 
 touch $dir/images
 
-for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk -F ':' '{print $1}' | uniq`
+for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json,list} -e "image:" | awk -F ':' '{print $1}' | uniq`
   do
   for src in `sed -n 's/image: \([a-z]\+\)/\1/p' $f | tr -d ' ' | uniq`
     do
@@ -19,6 +19,8 @@ for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk
     fi
   done
 done
-#sed -i '$!N; /^\(.*\)\n\1$/!P; D' $dir/images
+
+#bootkube_image=quay.io/coreos/bootkube:v0.3.1
+#[ -z "$TAG_PREFIX" ] && echo "$bootkube_image $bootkube_image" || echo "$TAG_PREFIX/`echo $bootkube_image | awk -F '/' '{print $NF}'` $bootkube_image" >> $dir/images
 awk '!seen[$0]++' $dir/images > $dir/no-duplicate
 cp $dir/no-duplicate /out/images
