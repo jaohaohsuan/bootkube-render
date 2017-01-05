@@ -19,4 +19,5 @@ find /manifests \! -name '*.list' -type f -exec cp {} $dir/manifests \;
 cd $dir
 tar -zcvf /asset.tar ./ -P
 cp $dir/auth/kubeconfig /out/
+chmod +r /out/kubeconfig
 cp /asset.tar /out/asset.tar
