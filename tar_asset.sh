@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 dir=`mktemp -d -u`
-bootkube render --asset-dir=$dir --api-servers=$BOOTKUBE_API_SERVERS --etcd-servers=BOOTKUBE_ETCD_SERVERS --self-host-kubelet
+bootkube render --asset-dir=$dir --api-servers=$BOOTKUBE_API_SERVERS --etcd-servers=$BOOTKUBE_ETCD_SERVERS --self-host-kubelet
 cp -r /manifests/* $dir/manifests
 #for f in `grep -rw $dir/manifests --include=\*.{yaml,yml,json} -e "image:" | awk -F ':' '{print $1}' | uniq`
 #  do
