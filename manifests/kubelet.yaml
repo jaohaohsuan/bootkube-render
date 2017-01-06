@@ -15,11 +15,6 @@ spec:
       - name: kubelet
         image: gcr.io/google_containers/hyperkube-amd64:v1.5.1
         command:
-        - /nsenter
-        - --target=1
-        - --mount
-        - --wd=.
-        - --
         - ./hyperkube
         - kubelet
         - --network-plugin=cni
@@ -47,9 +42,6 @@ spec:
           mountPath: /dev
         - name: run
           mountPath: /run
-        - name: sys
-          mountPath: /sys
-          readOnly: true
         - name: etc-kubernetes
           mountPath: /etc/kubernetes
           readOnly: true
@@ -66,6 +58,8 @@ spec:
           name: etc-cni
         - mountPath: /opt/cni
           name: opt-cni
+        - mountPath: /var/run
+          name: var-run
       hostNetwork: true
       hostPID: true
       volumes:
@@ -75,9 +69,6 @@ spec:
       - name: run
         hostPath:
           path: /run
-      - name: sys
-        hostPath:
-          path: /sys
       - name: etc-kubernetes
         hostPath:
           path: /etc/kubernetes
@@ -99,3 +90,6 @@ spec:
       - hostPath:
           path: /opt/cni
         name: opt-cni
+      - hostPath:
+          path: /var/run
+        name: var-run
