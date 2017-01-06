@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: kubelet
-        image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+        image: gcr.io/google_containers/hyperkube-amd64:v1.5.1
         command:
         - /nsenter
         - --target=1
