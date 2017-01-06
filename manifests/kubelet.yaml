@@ -25,7 +25,7 @@ spec:
         - --network-plugin=cni
         - --pod-manifest-path=/etc/kubernetes/manifests
         - --allow-privileged
-        - --hostname-override=$(NODE_NAME)
+        - --hostname-override=$(NODE_IP)
         - --cluster-dns=10.3.0.10
         - --cluster-domain=cluster.local
         - --kubeconfig=/etc/kubernetes/kubeconfig
@@ -36,6 +36,10 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: spec.nodeName
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.podIP
         securityContext:
           privileged: true
         volumeMounts:
