@@ -40,8 +40,11 @@ spec:
         volumeMounts:
         - name: dev
           mountPath: /dev
-        - name: run
-          mountPath: /run
+        - name: sys
+          mountPath: /sys
+          readOnly: true
+        - name: var-run
+          mountPath: /var/run
         - name: etc-kubernetes
           mountPath: /etc/kubernetes
           readOnly: true
@@ -54,21 +57,24 @@ spec:
           mountPath: /var/lib/kubelet
         - name: var-lib-rkt
           mountPath: /var/lib/rkt
+        - name: var-log
+          mountPath: /var/log
         - mountPath: /etc/cni
           name: etc-cni
         - mountPath: /opt/cni
           name: opt-cni
-        - mountPath: /var/run
-          name: var-run
       hostNetwork: true
       hostPID: true
       volumes:
       - name: dev
         hostPath:
           path: /dev
-      - name: run
+      - name: sys
         hostPath:
-          path: /run
+          path: /sys
+      - hostPath:
+          path: /var/run
+        name: var-run
       - name: etc-kubernetes
         hostPath:
           path: /etc/kubernetes
@@ -81,6 +87,9 @@ spec:
       - name: var-lib-kubelet
         hostPath:
           path: /var/lib/kubelet
+      - name: var-log
+        hostPath:
+          path: /var/log
       - name: var-lib-rkt
         hostPath:
           path: /var/lib/rkt
@@ -90,6 +99,3 @@ spec:
       - hostPath:
           path: /opt/cni
         name: opt-cni
-      - hostPath:
-          path: /var/run
-        name: var-run
